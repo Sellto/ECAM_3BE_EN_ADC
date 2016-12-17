@@ -1,0 +1,37 @@
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+%%configuration de listings
+\lstset{
+language=c++,
+basicstyle=\ttfamily\small, %
+identifierstyle=\color{pgreen}, %
+keywordstyle=\color{blue}, %
+stringstyle=\color{black!60}, %
+commentstyle=\it\color{green!95!yellow!1}, %
+columns=flexible, %
+tabsize=2, %
+extendedchars=true, %
+showspaces=false, %
+showstringspaces=false, %
+numbers=left, %
+numberstyle=\tiny, %
+breaklines=true, %
+breakautoindent=true, %
+captionpos=b
+}
+
+\lstset{backgroundcolor=\color{Zgris}}
+
+
+
+
+
+\newsavebox{\BBbox}
+\newenvironment{DDbox}[1]{
+\begin{lrbox}{\BBbox}\begin{minipage}{\linewidth}}
+{\end{minipage}\end{lrbox}\noindent\colorbox{Zgris}{\usebox{\BBbox}} \\
+[.5cm]}
