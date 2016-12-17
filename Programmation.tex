@@ -1,6 +1,60 @@
 \section{Programmation}
+
 \paragraph{}
-Le PIC18F8722 est composé de 3 ADC. le paramétrage de ceux-ci  se fera sur le registres ADCON0, ADCON1 et ADCON2.
+Il existe deux méthodes pour configurer ces registres :
+
+\subsection{Sans Libraire}
+Il s'agit de modifier directement les bits dans les registres. Le paramétrage de l'ADC se fera sur le registres ADCON0, ADCON1 et ADCON2.
+
+\paragraph{Tension de référence :} on configure pour que les tensions de références sont  $V_{SS}$ et $V_{DD}$
+
+
+\begin{lstlisting}
+ADCON1bits.VCFG0 = 0;
+ADCON1bits.VCFG1 = 0;
+\end{lstlisting}
+
+\paragraph{Alignement des bits encodé} : alignement à droite.
+\begin{lstlisting}
+ADCON2bits.ADFM = 1;
+\end{lstlisting}
+
+
+\paragraph{$T_{AD}$} : paramétrage pour un $T_{AD}$ = $\frac{F_{OSC}}{16}$
+\begin{lstlisting}
+ADCON2bits.ADCS2 = 1;
+ADCON2bits.ADCS1 = 0;
+ADCON2bits.ADCS0 = 1;
+\end{lstlisting}
+
+\paragraph{$T_{ACQ}$} : paramétrage pour un $T_{ACQ}$ = 6 $T_{AD}$
+\begin{lstlisting}
+ADCON2bits.ACQT2 = 0;
+ADCON2bits.ACQT1 = 1;
+ADCON2bits.ACQT0 = 1;
+\end{lstlisting}
+
+
+\paragraph{Choix de l'entrée analogique :} dans cette configuration on choisi l'entrée AN0 que l'on place en "mode" analogique. 
+ 
+\begin{lstlisting}
+ADCON0bits.CHS0 = 0;
+ADCON0bits.CHS1 = 0;
+ADCON0bits.CHS2 = 0;
+ADCON0bits.CHS3 = 0;
+ADCON1bits.PCFG0 = 0;
+\end{lstlisting}
+
+\subsection{Avec la libraire}
+en utilisant la libraire XC8 nous pouvont utiliser la fonction \textbf{OpenADC()} et \textbf{ SetChanADC()} pour réaliser les opérations ci-dessus.
+
 \paragraph{}
-Il existe deux méthodes pour configurer ces registres, avec ou sans librairie : 
+\begin{lstlisting}
+OpenADC(ADC_FOSC_16 & ADC_RIGHT_JUST & ADC_6_TAD,
+            ADC_REF_VDD_VSS,
+            0);
+
+SetChanADC(ADC_CH0);
+ADCON1bits.PCFG0 = 0;
+\end{lstlisting}
 
