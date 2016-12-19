@@ -1,13 +1,13 @@
 \section{Programmation}
 \label{programmation}
-Ne seront présentés dans cette section que le paramétrage de l'ADC, la codage de son utilisation sera explicité dans la section \ref{notion}
+Nous ne présenterons ici que le \textbf{paramétrage} de l'ADC, le codage de son utilisation sera explicité au moyen d'un exemple dans la section \ref{notion}
 \paragraph{}
-Il existe deux méthodes pour configurer ces registres :
+Il existe deux méthodes pour configurer les registres de l'ADC :
 
-\subsection{Sans Libraire}
-Il s'agit de modifier directement les bits dans les registres. Le paramétrage de l'ADC se fera sur le registres ADCON0, ADCON1 et ADCON2.
+\subsection{Sans libraire}
+Il s'agit de modifier directement les bits de configuration dans les registres adéquats. Le paramétrage de l'ADC se fera sur les registres ADCON0, ADCON1 et ADCON2.
 
-\paragraph{Tension de référence :} on configure pour que les tensions de références sont  $V_{SS}$ et $V_{DD}$
+\paragraph{Tensions de références :} on configure pour que les tensions de références soient  $V_{SS}$ et $V_{DD}$
 
 
 \begin{lstlisting}
@@ -15,20 +15,20 @@ ADCON1bits.VCFG0 = 0;
 ADCON1bits.VCFG1 = 0;
 \end{lstlisting}
 
-\paragraph{Alignement des bits encodé} : alignement à droite.
+\paragraph{Alignement des bits encodés:} alignement à droite.
 \begin{lstlisting}
 ADCON2bits.ADFM = 1;
 \end{lstlisting}
 
 
-\paragraph{$T_{AD}$} : paramétrage pour un $T_{AD}$ = $\frac{F_{OSC}}{16}$
+\paragraph{\textbf{$T_{AD}$}:} paramétrage pour un $T_{AD}$ = $\frac{F_{OSC}}{16}$
 \begin{lstlisting}
 ADCON2bits.ADCS2 = 1;
 ADCON2bits.ADCS1 = 0;
 ADCON2bits.ADCS0 = 1;
 \end{lstlisting}
 
-\paragraph{$T_{ACQ}$} : paramétrage pour un $T_{ACQ}$ = 6 $T_{AD}$
+\paragraph{\textbf{$T_{ACQ}$}:} paramétrage pour un $T_{ACQ}$ = 6 $T_{AD}$
 \begin{lstlisting}
 ADCON2bits.ACQT2 = 0;
 ADCON2bits.ACQT1 = 1;
@@ -47,7 +47,7 @@ ADCON1bits.PCFG0 = 0;
 \end{lstlisting}
 
 \subsection{Avec la libraire}
-en utilisant la libraire XC8 nous pouvont utiliser la fonction \textbf{OpenADC()} et \textbf{ SetChanADC()} pour réaliser les opérations ci-dessus.
+En utilisant la libraire XC8 nous pouvons utiliser les fonctions \textbf{OpenADC()} et \textbf{ SetChanADC()} pour réaliser ces mêmes opérations.
 
 \paragraph{}
 \begin{lstlisting}
@@ -58,4 +58,5 @@ OpenADC(ADC_FOSC_16 & ADC_RIGHT_JUST & ADC_6_TAD,
 SetChanADC(ADC_CH0);
 ADCON1bits.PCFG0 = 0;
 \end{lstlisting}
+
 
