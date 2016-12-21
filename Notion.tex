@@ -17,7 +17,7 @@ Le principe général de la modulation PWM est qu'en appliquant une succession d
 \end{figure}
 
 \paragraph{}
-Une application concrète de ces notions est le contrôle d'un moteur DC au moyen d'un signal PWM. Le moteur est placé dans un montage en pont H dont l'ouverture et la fermeture des interrupeurs est commandée par le signal PWM (voir FIGURE \ref{pontH}). Afin de gérer le sens de rotation du moteur ainsi que sa vitesse, on utilise un potentiomètre et un convertisseur Analogique-Numérique. Celui-ci aura alors pour fonction de traduire la valeur analogique de la tension lue sur le potentiomètre en un rapport cyclique pour le module PWM. Ainsi, par exemple,  si le potentiomètre est mis sur la résistance minimale, l'ADC convertira cette valeur en un rapport cyclique minimum et le moteur sera à basse vitesse.
+Une application concrète de ces notions est le contrôle d'un moteur DC au moyen d'un signal PWM. Le moteur est placé dans un montage en pont H dont l'ouverture et la fermeture des interrupeurs est commandée par le signal PWM (voir FIGURE \ref{pontH}). Afin de gérer le sens de rotation du moteur ainsi que sa vitesse, on utilise un potentiomètre et un convertisseur Analogique-Numérique. Celui-ci aura alors pour fonction de traduire la valeur analogique de la tension lue sur le potentiomètre en un rapport cyclique pour le module PWM. Ainsi, par exemple,  si le potentiomètre est mis sur la résistance minimale, l'ADC convertira cette valeur en un rapport cyclique minimum et le moteur sera à basse vitesse\footnote{Nb: nous ne développeront cependant pas le code pour ce genre d'application, car il s'agit d'une utilisation directe d'une PWM, mais indirecte d'un ADC.}.
 
 \begin{figure}[h]
 \begin{center}
@@ -30,7 +30,7 @@ Une application concrète de ces notions est le contrôle d'un moteur DC au moye
 \end{figure}
 
 \paragraph{}
-Utilisation du signal numérique de sortie de l'ADC pour créer une PWM, via les librairies du compilateur XC8 :
+Utilisation du signal numérique de sortie de l'ADC pour créer une PWM, via les librairies du compilateur XC8:
 
 \paragraph{Création de la PWM} paramétrage de la période\footnote{
 le calcul de la durée de la période de la PWM se fait grâce à la formule $period =[(period ) + 1] x 4 x TOSC x TMR2 prescaler$. Cette valeur sera renseignée comme paramètre de la fonction OpenPMMx() et du mode.}
